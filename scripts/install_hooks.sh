@@ -25,6 +25,6 @@ for FILE_PATH in ./hooks/*; do
 
   echo "## Installing ${FILE_NAME}..."
   SRC_PATH="$(realpath "${FILE_PATH}")"
-  DST_PATH="$(realpath "./.git/modules/anyenv/hooks/${FILE_NAME}")"
+  DST_PATH="$(realpath "./.git/modules/anyenv/hooks")/${FILE_NAME}"
   ln -sf "${SRC_PATH}" "${DST_PATH}"
 done
