@@ -16,7 +16,7 @@ SELF_NAME=$(basename $0)
 
 # Guard
 if [[ ! -f './scripts/initialize.sh' ]]; then
-  echo "To run ${SELF_NAME}, cd anyenv-aur root directory"
+  echo "To run ${SELF_NAME}, cd anyenv-aur-maintain-toolchain root directory"
   exit 1
 fi
 

@@ -1,4 +1,4 @@
-# anyenv-aur
+# anyenv-aur-maintain-toolchain
 Toolchain for [anyenv](https://github.com/anyenv/anyenv) AUR package maintainer
 
 ## Installation
