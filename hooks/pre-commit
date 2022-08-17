@@ -12,11 +12,13 @@ function run_namcap() {
     return 1
   fi
 
-  NAMCAP_LOG="$(namcap "${TARGET_FILE}")"
+  NAMCAP_LOG="$(namcap -e 'non-unique-source' "${TARGET_FILE}")"
   if [[ -n "${NAMCAP_LOG}" ]]; then
     echo "${NAMCAP_LOG}"
     return 1
   fi
+
+  return 0
 }
 
 # Test
