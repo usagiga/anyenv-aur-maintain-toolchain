@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Define functions
+function run_namcap() {
+  local NAMCAP_LOG TARGET_FILE
+
+  TARGET_FILE=$1; shift
+  if [[ -z "${TARGET_FILE}" ]]; then
+    echo "$0 needs target file. pls specify"
+    return 1
+  fi
+
+  NAMCAP_LOG="$(namcap "${TARGET_FILE}")"
+  if [[ -n "${NAMCAP_LOG}" ]]; then
+    echo "${NAMCAP_LOG}"
+    return 1
+  fi
+}
+
+# Test
+## Test for PKGBUILD
+echo '# Run namcap PKGBUILD...'
+run_namcap PKGBUILD
+
+## Test for artifacts
+echo '# Run namcap anyenv-*-any.pkg.tar.zst...'
+echo '## Build artifacts...'
+makepkg -si
+
+echo '## Run namcap...'
+KILL_SWITCH=
+run_namcap anyenv-*-any.pkg.tar.zst || KILL_SWITCH=1
+echo '## Remove build artifacts...'
+rm -r anyenv-*-any.pkg.tar.zst \
+    ./pkg/ \
+    ./src/ \
+    v*.tar.gz
+if [[ -n ${KILL_SWITCH} ]]; then
+  exit 1
+fi
+
+# Update .SRCINFO
+echo '## Update .SRCINFO...'
+makepkg --printsrcinfo > '.SRCINFO'
+git add '.SRCINFO'
