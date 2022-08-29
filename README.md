@@ -27,6 +27,16 @@ cd ./anyenv-aur
 
 ## How to maintain anyenv
 
+### Bumping version
+
+Run it:
+
+```shell
+./scripts/bump_version.sh
+```
+
+### Others
+
 Just edit PKGBUILD.
 
 When you run `git commit`, git hooks run test and finalize automatically! :tada:
